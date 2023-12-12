@@ -1,0 +1,4 @@
+"devDependencies": {
+  // ... other dependencies ...
+  "typescript": "^4.0.0" // use the latest version
+}

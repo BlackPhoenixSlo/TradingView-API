@@ -4,6 +4,8 @@ const TradingView = require('../main');
  * This example tests the user login function
  */
 
+process.argv[2] = "jakabasej1999@gmail.com"
+process.argv[3] = "Cokolada1999!!!"
 if (!process.argv[2]) throw Error('Please specify your username/email');
 if (!process.argv[3]) throw Error('Please specify your password');
 

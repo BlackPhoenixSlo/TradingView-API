@@ -5,18 +5,34 @@ const TradingView = require('../main');
  * of candles before or after a timestamp
  */
 
-const client = new TradingView.Client();
+process.argv[2] = "whv5betgotone8n4lfwnaco9xq15dl7t"
+process.argv[3] = "v1:Bk/ZvaAmuR48QoWNbGrOeTdM9CTL+CUngWzYXUF0jvQ="
+if (!process.argv[2]) throw Error('Please specify your username/email');
+if (!process.argv[3]) throw Error('Please specify your password');
 
+
+
+
+
+  const client = new TradingView.Client({
+    token: process.argv[2],
+    signature: process.argv[3],
+  });
 const chart = new client.Session.Chart();
-chart.setMarket('BINANCE:BTCEUR', {
-  timeframe: '240',
-  range: 2, // Can be positive to get before or negative to get after
-  to: 1600000000,
+
+
+chart.setMarket('BINANCE:BTCUSDT', {
+  timeframe: '86400',
+  // range: 1, // Can be positive to get before or negative to get after
+  // to: 1701885985,
+  range: -7, // Range is negative, so 'to' means 'from'
+  to: Math.round(Date.now() / 1000) - 86400 * 7, // Seven days before now
+  
 });
 
 // This works with indicators
 
-TradingView.getIndicator('STD;Supertrend').then(async (indic) => {
+TradingView.getIndicator('USER;fa4099d3a752474a95e79b2d9186b804').then(async (indic) => {
   console.log(`Loading '${indic.description}' study...`);
   const SUPERTREND = new chart.Study(indic);
 

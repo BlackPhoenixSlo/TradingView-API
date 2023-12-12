@@ -85,7 +85,7 @@ module.exports = {
   async getTA(screener, id) {
     const advice = {};
 
-    const cols = ['1', '5', '15', '60', '240', '1D', '1W', '1M']
+    const cols = ['1', '5', '15', '60', '240', '1D','4D', '5760', '1W', '1M']
       .map((t) => indicators.map((i) => (t !== '1D' ? `${i}|${t}` : i)))
       .flat();
 

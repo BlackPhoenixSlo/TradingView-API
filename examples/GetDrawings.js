@@ -3,7 +3,7 @@ const TradingView = require('../main');
 /**
  * This example tests the getDrawings function
  */
-
+process.argv[2] = "VJVstmDw"
 // First parameter must be the layoutID
 // (if the layout is private) Second parameter must be the sessionid cookie
 // (if the layout is private) Third parameter must be the userid (you can use getUser function)

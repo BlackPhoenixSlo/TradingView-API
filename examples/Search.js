@@ -9,6 +9,6 @@ TradingView.searchMarket('BINANCE:').then((rs) => {
   console.log('Found Markets:', rs);
 });
 
-TradingView.searchIndicator('RSI').then((rs) => {
+TradingView.searchIndicator('FSVZO').then((rs) => {
   console.log('Found Indicators:', rs);
 });

@@ -29,11 +29,25 @@ chart.onUpdate(() => { // When price changes
 
 // Wait 5 seconds and set the market to BINANCE:ETHEUR
 setTimeout(() => {
-  console.log('\nSetting market to BINANCE:ETHUSDT...');
+  console.log('\nSetting market to BINANCE:BTCUSDT...');
   chart.setMarket('BINANCE:ETHUSDT', {
     timeframe: 'D',
+    range: -1, // Range is negative, so 'to' means 'from'
+  to: Math.round(Date.now() / 1000) - 86400 * 3, // Seven days before now
+  
   });
 }, 5000);
+
+TradingView.getIndicator('PUB;1161a39a858a4b76bcaf690637723e51').then(async (indic) => {
+    console.log(`Loading '${indic.description}' study...`);
+    const SUPERTREND = new chart.Study(indic);
+  
+    SUPERTREND.onUpdate(() => {
+      console.log('Prices periods:', chart.periods);
+      console.log('Study periods:', SUPERTREND.periods);
+      client.end();
+    });
+  });
 
 // Wait 10 seconds and set the timeframe to 15 minutes
 setTimeout(() => {

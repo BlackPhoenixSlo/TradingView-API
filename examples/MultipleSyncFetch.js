@@ -6,7 +6,8 @@ const TradingView = require('../main');
 
 const client = new TradingView.Client();
 const chart = new client.Session.Chart();
-chart.setMarket('BINANCE:DOTUSDT');
+chart.setMarket('BINANCE:DOTUSDT',{
+  timeframe: 'D'});
 
 function getIndicData(indicator) {
   return new Promise((res) => {
@@ -30,7 +31,7 @@ function getIndicData(indicator) {
     await TradingView.getIndicator('PUB;vrOJcNRPULteowIsuP6iHn3GIxBJdXwT'),
   ].map(getIndicData));
 
-  console.log(indicData);
+  console.log(indicData[0]);
   console.log('All done !');
 
   client.end();
