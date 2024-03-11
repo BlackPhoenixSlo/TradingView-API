@@ -11,6 +11,8 @@ const id = "whv5betgotone8n4lfwnaco9xq15dl7t";
 const certificate = "v1:Bk/ZvaAmuR48QoWNbGrOeTdM9CTL+CUngWzYXUF0jvQ=";
 const SCOPES = ['https://www.googleapis.com/auth/spreadsheets'];
 const markets = ['BINANCE:BTCUSDT', 'BINANCE:ETHUSDT', 'BINANCE:ETHBTC'];
+const alerts = require("./alerts");
+
 
 async function getAuthToken() {
     const auth = new google.auth.GoogleAuth({ scopes: SCOPES });
@@ -354,6 +356,28 @@ app.get('/runTask', async (req, res) => {
         console.log('HTTP request received at /runTask');
         const data = await calculatePositions();
         console.log("HTTP Task Completed. Data:", data);
+
+        alerts.discordTPIAlert({
+            componentChanges: componentChanges,
+            displayTPIValues: [
+                {
+                    displayName: "TPI-BTC-ETH-Correlation-V2-FSVZO",
+                    score: tpiScores["TPI-BTC-ETH-Correlation-V2"]
+                },
+                {
+                    displayName: "TPI-BTC-ETH-Correlation-V3-WRSI",
+                    score: tpiScores["TPI-BTC-ETH-Correlation-V3"]
+                },
+                {
+                    displayName: "TPI-BTC-ETH-Correlation-V4-WVZO",
+                    score: tpiScores["TPI-BTC-ETH-Correlation-V4"]
+                },
+                {
+                    displayName: "sum_of_signals_(cap,cor,top10)_lev_2_in_%",
+                    score: for_jack_signal
+                }
+            ]
+        });
 
         // Send response back to client
         res.json(data);
